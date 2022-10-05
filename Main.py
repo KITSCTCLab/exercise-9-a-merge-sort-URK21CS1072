@@ -33,6 +33,7 @@ def merge_sort(myList) -> None:
               i += 1
             else:
                 myList[k] = right[j]
+              
                 j += 1
             # Move to the next slot
             k += 1
