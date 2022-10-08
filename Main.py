@@ -1,63 +1,45 @@
 from typing import List
 
-def merge(nums1: List[int], m: int, nums2: List[int], n: int) -> None:
- 
-  x = nums1[0:m]
-  y = nums2[0:n]
-  nums1=x+y
-  nums1 = merge_sort(nums1)
-  return nums1
+def merge(arr: [int], l: int, mid: int, r: int) -> [int]:
+  l1 = arr[l:mid]
+  l2 = arr[mid:r]
+  i, j = 0, 0
+  k =  l
+  while i < len(l1) and j < len(l2):
+    if l1[i] < l2[j]:
+      arr[k] = l1[i]
+      i += 1
+    else:
+      arr[k] = l2[j]
+      j += 1
+    k += 1
+  while i < len(l1):
+    arr[k] = l1[i]
+    i += 1
+    k += 1
+  while j < len(l2):
+    arr[k] - l2[j]
+    j += 1
+    k += 1
+
+def merge_sort_ftn(arr, l, r) -> None:
+  if r - l >= 2:
+    mid = l + (r - l) // 2
+    merge_sort_ftn(arr, l, mid)
+    merge_sort_ftn(arr, mid, r)
+    merge(arr, l, mid, r)
   
-def merge_sort(myList) -> None:
-  if len(myList) > 1:
-        mid = len(myList) // 2
-        left = myList[:mid]
-        right = myList[mid:]
+def merge_sort(data) -> None:
+  merge_sort_ftn(data, 0, len(data))
 
-        # Recursive call on each half
-        merge_sort(left)
-        merge_sort(right)
-
-        # Two iterators for traversing the two halves
-        i = 0
-        j = 0
-        
-        # Iterator for the main list
-        k = 0
-        
-        while i < len(left) and j < len(right):
-            if left[i] <= right[j]:
-              # The value from the left half has been used
-              myList[k] = left[i]
-              # Move the iterator forward
-              i += 1
-            else:
-                myList[k] = right[j]
-              
-                j += 1
-            # Move to the next slot
-            k += 1
-
-        # For all the remaining values
-        while i < len(left):
-            myList[k] = left[i]
-            i += 1
-            k += 1
-
-        while j < len(right):
-            myList[k]=right[j]
-            j += 1
-            k += 1
-  return myList
 
 # Do not change the following code
-nums1 = []
-nums2 = []
-for item in input().split(', '):
-  nums1.append(int(item))
-for item in input().split(', '):
-  nums2.append(int(item))
-m = int(input())
-n = int(input())
-
-print(merge(nums1, m, nums2, n))
+input_data = input()
+data = []
+for item in input_data.split(', '):
+  if item.isnumeric():
+    data.append(int(item))
+  elif item.lstrip("-").isnumeric():
+    data.append(int(item))
+merge_sort(data)
+print(data)
